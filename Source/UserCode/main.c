@@ -10,7 +10,7 @@ int main(void)
 {
 	bsp_Init();  //初始化硬件设备
 	bsp_DelayMS(10);
-	TaskInit(); //初始化任务,仅是获取任务数量，任务调度在bsp_idle中调用task_process实现    
+//	TaskInit(); //初始化任务,仅是获取任务数量，任务调度在bsp_idle中调用task_process实现    
 	while (1)
 	{
 //		if (GPIO_ReadInputDataBit(GPIOB, RF_IRQ_PIN)) //SPI的SX1278，接收到数据时，IRQ引脚为高
@@ -36,7 +36,13 @@ int main(void)
 //				IsEnterIRQ = FALSE;            
 //		}      
 //		bsp_Idle(); 
-		if(g_tUart1.RxCount >= 5 && g_tUart1.RxBuf[0] == 'S')//从PC上位机串口接收到数据
+
+//	if ((g_tUart1.RxBuf[0] != '%') && (g_tUart1.RxBuf[8] != '&')) //检测数据包头是否正确
+//	{
+//		printf("error in head!");
+//	} 
+
+		if(g_tUart1.RxCount >= 12 && g_tUart1.RxBuf[0] == '%' && g_tUart1.RxBuf[8] == '&')//从PC上位机串口接收到数据
 		{
 			RFSendData(g_tUart1.RxBuf,g_tUart1.RxCount);
 			g_tUart1.RxCount = 0;

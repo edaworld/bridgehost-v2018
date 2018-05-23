@@ -1,6 +1,6 @@
 #include "bsp.h"
 
-#define NULL 0
+//#define NULL 0
 
 extern uint8_t g_uart1_timeout; //检测串口1接收数据超时的全局变量
 
