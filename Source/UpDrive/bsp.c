@@ -71,5 +71,4 @@ void bsp_RunPer1ms(void)
 void bsp_Idle(void)
 {
 	/*此处可以喂狗 */
-	TPCProcess(TaskComps);//处理任务，定时时间到达的，即得到执行
 }

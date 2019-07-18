@@ -47,7 +47,7 @@ void SPI2_Init(void)
     /* Enable SPI2  */
     SPI_Cmd(SPI2, ENABLE); //
 }
-u8 SPI_ExchangeByte( u8 input )
+uint8_t SPI_ExchangeByte( u8 input )
 {
     /* Loop while DR register in not emplty */
     while(SPI_I2S_GetFlagStatus(SPI2, SPI_I2S_FLAG_TXE) == RESET);

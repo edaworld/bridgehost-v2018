@@ -2,9 +2,8 @@
 
 const char *rfName = "SX1278";
 
-u16	iSend, iRev;    //无线发送和接收计数
-u8	sendBuf[64];    //发送缓冲区
-u8	revBuf[128];    //接收缓冲区
+uint8_t	sendBuf[64];    //发送缓冲区
+uint8_t	revBuf[128];    //接收缓冲区
 
 //初始化SX1278的四个IO口,PA8,PB12,PB10,PB11.
 //PA8-----------RF_CE，RF_NREST引脚
@@ -55,20 +54,15 @@ void RFRxMode(void)
 }
 
 //射频模块接收数据
-u8 RFRevData(void)
+uint8_t RFRevData(void)
 {
-	u8 length = 0;
-//	if (GPIO_ReadInputDataBit(GPIOB, RF_IRQ_PIN)) //收到数据高电平中断
-//	{
-		length = RFM96_LoRaRxPacket(revBuf);
-		RFRxMode();
-//	}
-//	if (length > 0) 
-//		iRev++; //接收数据个数
+	uint8_t length = 0;
+	length = RFM96_LoRaRxPacket(revBuf);
+	RFRxMode();
 	return (length);
 }
 //射频模块发射数据
-u8 RFSendData(u8 *buf, u8 size)
+uint8_t RFSendData(uint8_t *buf, uint8_t size)
 {
 	int ret = 0;
 	ret = RFM96_LoRaEntryTx(size); //返回发送字节数
@@ -76,9 +70,7 @@ u8 RFSendData(u8 *buf, u8 size)
 
 	bsp_DelayMS(5);
 	RFRxMode(); //进入接收模式
-    
-//	if (ret > 0) 
-//		iSend++;    //发送数据个数
+
 	return (ret); //成功后大于0的值
 }
 
